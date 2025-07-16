@@ -23,7 +23,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: lastest
+          version: lastest-8
       - name: Install, build, and upload your site
         uses: withastro/action@v3
         
