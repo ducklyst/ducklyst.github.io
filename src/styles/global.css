@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+    --font-original-surfer: 'Original Surfer', system-ui;
+    --font-fugaz-one: 'Fugaz One', system-ui;
+    --font-outfit: 'Outfit', system-ui;
+    --font-jetbrains-mono: 'JetBrains Mono Variable', monospace;
+}
