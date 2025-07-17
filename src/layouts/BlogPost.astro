@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./Base.astro";
+
+type Props = CollectionEntry<"blog">["data"];
+
+const { title, description, category, publicationDate, tags } = Astro.props;
+---
+
+<BaseLayout>
+  <div class="flex items-end">
+    <h2 class="text-5xl font-fugaz-one">{title}</h2>
+    <span class="border-1 w-full invisible md:visible"></span>
+    <p class="invisible md:visible text-sm text-amber-500">
+      {publicationDate.toLocaleDateString()}
+    </p>
+  </div>
+  <p class="md:invisible visible text-sm text-amber-500">
+    {publicationDate.toLocaleDateString()}
+  </p>
+
+  <slot class="prose"/>
+</BaseLayout>

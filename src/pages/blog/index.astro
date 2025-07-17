@@ -1,0 +1,27 @@
+---
+import { onMount } from "svelte";
+import BaseLayout from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf(),
+);
+---
+
+<BaseLayout>
+  { posts.length === 0 ?  <p>nothing but ducks 🦆</p> : (
+    posts.map((post) => (
+      <a href={`/blog/${post.id}`}> 
+        <article class="py-4 border-b-2 border-dashed border-amber-200">
+          <p class="font-fugaz-one text-xl">
+            {post.data.title}
+          </p>
+          <p class="text-sm font-jetbrains-mono">
+            {post.data.publicationDate.toLocaleDateString()}
+          </p>
+          <p class="text-base">{post.data.description}</p>
+        </article>
+      </a>
+    ))
+    )
+  }
+</BaseLayout>

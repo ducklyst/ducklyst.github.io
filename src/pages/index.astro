@@ -1,14 +1,44 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/Base.astro";
+
+const posts = (await getCollection("blog"))
+  .sort(
+    (a, b) =>
+      b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf()
+  )
+  .slice(0, 5);
 ---
 
 <BaseLayout>
-	<span class="text-3xl font-fugaz-one">Hi, I'm Kaushik</span><br/>
-	Hobbyiest developer and Statistics student<br/>
+  <span class="text-3xl font-fugaz-one">Hi, I'm Kaushik</span><br />
+  Hobbyiest developer and Statistics student<br />
 
-	Welcome to my profile. I'm a hobbyiest developer, data science and analytics enthusiast and student, pursing master's degree in Statistics. Thanks for visiting my profile.
-	<h4 class="font-fugaz-one text-3xl py-4">project</h4>
-	currently none
-	<h4 class="font-fugaz-one text-3xl py-4">blog</h4>
-	currently none
+  Welcome to my profile. I'm a hobbyiest developer, data science and analytics
+  enthusiast and student, pursing master's degree in Statistics. Thanks for
+  visiting my profile.
+  <h4 class="font-fugaz-one text-3xl py-4">project</h4>
+  currently none
+  <h4 class="font-fugaz-one text-3xl py-4">blog</h4>
+  {
+    posts.length === 0 ? (
+      <p>nothing but ducks 🦆</p>
+    ) : (
+      posts.map((post) => (
+        <a href={`/blog/${post.id}`}>
+			<article class="py-4 flex items-center justify-between">
+			<p class="font-fugaz-one">
+				{post.data.title}
+			</p>
+			<p class="text-sm font-jetbrains-mono">
+				[{post.data.publicationDate.toLocaleDateString()}]
+			</p>
+			
+			</article>
+		</a><br />
+		<a href="/blog">more...</a>
+		
+      ))
+    )
+  }
 </BaseLayout>
